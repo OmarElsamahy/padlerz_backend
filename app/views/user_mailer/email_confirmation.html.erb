@@ -1,0 +1,5 @@
+<h1>Welcome <%= @user.name %></h1>
+
+<p>You can confirm your email through the link below.</p>
+
+<%= link_to "Confirm email", api_v1_auth_verify_email_url(options: {verification_email_token: @user.verification_email_token, email: @user.email, user_type: @user_type}) %>

@@ -45,7 +45,9 @@ class BaseApiController < ApplicationController
   end
 
   def paginate_collection(collection)
-    @pagination_info = { total_count: collection.reorder(nil).size, page_number: @page, page_size: @per_page }
+    total_count = collection.reorder(nil).size
+    total_count = total_count.is_a?(Hash) ? total_count.size : total_count
+    @pagination_info = { total_count: total_count, page_number: @page, page_size: @per_page }
     return (collection.loaded? rescue true) ?
              Kaminari.paginate_array(collection).page(@page).per(@per_page) : collection.page(@page).per(@per_page)
   end
