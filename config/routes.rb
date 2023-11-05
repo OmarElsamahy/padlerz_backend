@@ -1,4 +1,3 @@
-require "sidekiq/web"
 Rails.application.routes.draw do
   # devise_for :stores
   # mount Rswag::Ui::Engine => '/api-docs'

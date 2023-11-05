@@ -25,7 +25,7 @@ module PadlerzBackend
     config.i18n.fallbacks = [:en]
     config.i18n.fallbacks = Hash[(AVAILABLE_LOCALES - [:en]).map {|x| [x, :en]}]
 
-    config.active_job.queue_adapter = :sidekiq
+    # config.active_job.queue_adapter = :sidekiq
 
     config.middleware.use RequestLogger
     config.middleware.use SetLanguage
