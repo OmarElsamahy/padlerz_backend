@@ -72,4 +72,8 @@ class BaseApiController < ApplicationController
     controller_namespace = controller_name_segments.join("/").camelize
     @current_ability ||= Ability.new(current_user, controller_namespace)
   end
+
+  def logger
+    @logger ||= ConsoleLogger.instance.logger
+  end
 end
