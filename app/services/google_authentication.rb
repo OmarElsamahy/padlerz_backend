@@ -22,6 +22,6 @@ class GoogleAuthentication
   end
 
   def gm_logger
-    logger ||= ActiveSupport::Logger.new("#{Rails.root}/log/google_auth.log")
+    logger ||= Logger.new("#{Rails.root}/log/google_auth.log")
   end
 end

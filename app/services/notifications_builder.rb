@@ -37,7 +37,6 @@ class NotificationsBuilder
       notifiable_users = notification.stores
     end
 
-    puts data
     send_notification_to_users(users: notifiable_users, notification: notification, data: data)
   end
 end

@@ -1,27 +1,28 @@
-class Chat
-  def create_chat_room(chat_attributes, members)
-    members = members.unshift({ user_id: chat_attributes[:user_id], user_type: chat_attributes[:user_type] })
-                     .uniq { |member| { user_id: member[:user_id], user_type: member[:user_type] } }
+class FirebaseAuthentication
+  include HTTParty
 
-    if members.count == 2
-      return @existing_chat if direct_chat_exists?(members.pluck(:user_id, :user_type))
-      chat_attributes[:is_direct_chat] = true
+  def authenticate_firebase_token(token: "", provider: "phone")
+    logger = fb_logger
+    logger.info("Authenticate firebase token")
+    logger.info("API KEY #{FCM_SERVER_KEY}")
+    logger.info("Authenticate with token #{token}")
+    url = "https://www.googleapis.com/identitytoolkit/v3/relyingparty/getAccountInfo?key=#{FCM_SERVER_KEY}"
+    firebase_verification_call = HTTParty.post(url, headers: { "Content-Type" => "application/json" }, body: { "idToken" => token }.to_json)
+    logger.info("Response #{firebase_verification_call.response}")
+    if firebase_verification_call.response.code == "200"
+      logger.info("Success #{firebase_verification_call.parsed_response}")
+      firebase_infos = firebase_verification_call.parsed_response
+      profile = firebase_infos["users"].first
+      return profile
+    else
+      logger.info("failed, with error #{firebase_verification_call.parsed_response}")
+      response = firebase_verification_call.parsed_response
+      message = response["error"]["message"]
+      raise(ExceptionHandler::InvalidToken, message)
     end
-    @chat_room = ChatRoom.new(chat_attributes)
-    @chat_room.chat_members.build(members)
-    @chat_room.save
-    return @chat_room
   end
 
-  def update_chat_room(chat_room, chat_attributes, members) #for groups only
-    members = members.unshift({ user_id: chat_attributes[:user_id] }).uniq { |member| member[:user_id] }
-    chat_room.update(chat_attributes)
-    chat_room.users = Customer.where(id: members.pluck(:user_id))
-    return chat_room
-  end
-
-  def direct_chat_exists?(users)
-    @existing_chat = ((Object.const_get users[0][1]).find(users[0][0]).chat_rooms.direct &
-                      (Object.const_get users[1][1]).find(users[1][0]).chat_rooms.direct).first
+  def fb_logger
+    logger ||= Logger.new("#{Rails.root}/log/fb_auth.log")
   end
 end

@@ -12,4 +12,7 @@ module ParamsHelper
     return result
   end
 
+  def registration_params
+    params.require(:user).permit()
+  end
 end
