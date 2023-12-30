@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_02_092306) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_11_14_151044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,8 +21,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "resource_id"
     t.string "author_type"
     t.bigint "author_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
@@ -41,8 +40,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.boolean "is_hidden"
     t.boolean "is_default"
     t.bigint "customer_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.bigint "city_id"
     t.index ["city_id"], name: "index_addresses_on_city_id"
@@ -57,17 +56,22 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "privilege"
     t.bigint "role_id"
     t.string "name"
     t.string "phone_number", default: ""
     t.string "country_code", default: ""
-    t.string "firebase_uid"
     t.string "avatar"
+    t.string "firebase_uid"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_admin_users_on_role_id"
@@ -77,8 +81,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "origin_zone_id"
     t.bigint "destination_zone_id"
     t.string "delivery_fees", default: "0.0"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["destination_zone_id"], name: "index_between_zones_fees_on_destination_zone_id"
     t.index ["origin_zone_id"], name: "index_between_zones_fees_on_origin_zone_id"
   end
@@ -91,8 +95,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "voice_message_link"
     t.bigint "gift_card_id"
     t.bigint "cart_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_gift_cards_on_cart_id"
     t.index ["gift_card_id"], name: "index_cart_gift_cards_on_gift_card_id"
   end
@@ -104,9 +108,9 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.float "original_amount"
     t.float "amount"
     t.integer "status", default: 0
-    t.datetime "checked_out_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "checked_out_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "wishlist_id"
     t.integer "current_city_id"
     t.integer "current_city_fulfillment_center_id"
@@ -120,10 +124,10 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.float "original_amount"
     t.float "amount"
     t.integer "state", default: 0
-    t.datetime "checked_out_at"
+    t.datetime "checked_out_at", precision: nil
     t.text "special_instructions"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "delivery_address_id"
     t.float "redeemed_from_wallet", default: 0.0
     t.float "weight", default: 0.0
@@ -136,19 +140,19 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "chat_members", force: :cascade do |t|
     t.bigint "chat_room_id", null: false
     t.string "user_type"
     t.bigint "user_id"
-    t.datetime "first_join"
-    t.datetime "last_seen"
+    t.datetime "first_join", precision: nil
+    t.datetime "last_seen", precision: nil
     t.boolean "is_muted", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["chat_room_id"], name: "index_chat_members_on_chat_room_id"
     t.index ["user_type", "user_id"], name: "index_chat_members_on_user"
   end
@@ -163,10 +167,10 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.boolean "is_deleted", default: false
     t.boolean "is_direct_chat", default: false
     t.string "last_message"
-    t.datetime "last_message_date"
+    t.datetime "last_message_date", precision: nil
     t.integer "status", default: 1
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "extra_options_url"
     t.index ["user_type", "user_id"], name: "index_chat_rooms_on_user"
   end
@@ -174,8 +178,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.string "lookup_key"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.index ["country_id"], name: "index_cities_on_country_id"
   end
@@ -183,15 +187,15 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "colors", force: :cascade do |t|
     t.string "name"
     t.string "presentation"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
     t.string "name"
     t.string "lookup_key"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -203,13 +207,13 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "unconfirmed_country_code"
     t.string "unconfirmed_phone_number"
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.string "verification_code"
-    t.datetime "verification_code_sent_at"
+    t.datetime "verification_code_sent_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
-    t.datetime "last_sign_in_at"
+    t.datetime "last_sign_in_at", precision: nil
     t.string "last_sign_in_ip"
     t.string "name"
     t.string "avatar"
@@ -226,8 +230,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "invitation_code"
     t.boolean "is_verified", default: false
     t.boolean "is_email_verified", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "verification_email_token"
     t.string "lat"
     t.string "long"
@@ -241,8 +245,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "driver_id"
     t.bigint "order_declination_reason_id"
     t.bigint "order_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["driver_id"], name: "index_declined_orders_on_driver_id"
     t.index ["order_declination_reason_id"], name: "index_declined_orders_on_order_declination_reason_id"
     t.index ["order_id"], name: "index_declined_orders_on_order_id"
@@ -259,8 +263,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.integer "device_type", default: 0
     t.boolean "logged_out", default: true
     t.string "locale", default: "en"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["authenticable_type", "authenticable_id"], name: "index_devices_on_authenticable"
   end
 
@@ -273,13 +277,13 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "unconfirmed_country_code"
     t.string "unconfirmed_phone_number"
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.string "verification_code"
-    t.datetime "verification_code_sent_at"
+    t.datetime "verification_code_sent_at", precision: nil
     t.integer "sign_in_count", default: 0
-    t.datetime "current_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
-    t.datetime "last_sign_in_at"
+    t.datetime "last_sign_in_at", precision: nil
     t.string "last_sign_in_ip"
     t.string "name"
     t.string "avatar"
@@ -298,8 +302,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "invitation_code"
     t.boolean "is_verified", default: false
     t.boolean "is_email_verified", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.bigint "city_id"
     t.integer "profile_status", default: 0
@@ -322,8 +326,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "user_id"
     t.string "favourite_type"
     t.bigint "favourite_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["favourite_type", "favourite_id"], name: "index_favourites_on_favourite"
     t.index ["user_id", "user_type", "favourite_id", "favourite_type"], name: "index_favourites_on_user_favourite", unique: true
     t.index ["user_type", "user_id"], name: "index_favourites_on_user"
@@ -337,9 +341,9 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.boolean "need_action"
     t.string "data"
     t.string "data_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.datetime "countdown_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "countdown_to", precision: nil
   end
 
   create_table "follows", force: :cascade do |t|
@@ -347,8 +351,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "follower_id"
     t.string "followee_type"
     t.bigint "followee_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["followee_type", "followee_id"], name: "index_follows_on_followee"
     t.index ["follower_id", "follower_type", "followee_id", "followee_type"], name: "index_follower_on_followee", unique: true
     t.index ["follower_type", "follower_id"], name: "index_follows_on_follower"
@@ -360,8 +364,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.float "price"
     t.float "price_after_discount"
     t.float "discount_percentage"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "is_available", default: true
     t.integer "status"
   end
@@ -370,8 +374,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "wishlist_id"
     t.bigint "variant_id"
     t.bigint "customer_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_gift_histories_on_customer_id"
     t.index ["variant_id"], name: "index_gift_histories_on_variant_id"
     t.index ["wishlist_id"], name: "index_gift_histories_on_wishlist_id"
@@ -391,8 +395,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "name"
     t.string "lat"
     t.string "long"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "delivery_fees", default: "0.0"
     t.boolean "is_fulfillment_center", default: false
     t.bigint "fulfillment_center_id"
@@ -425,11 +429,11 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "job_schedules", force: :cascade do |t|
     t.string "schedulable_type"
     t.bigint "schedulable_id"
-    t.datetime "time"
+    t.datetime "time", precision: nil
     t.string "worker_jid"
     t.integer "job_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["schedulable_type", "schedulable_id"], name: "index_job_schedules_on_schedulable"
   end
 
@@ -442,8 +446,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "district"
     t.string "street_information"
     t.boolean "is_hidden"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.bigint "city_id"
     t.index ["city_id"], name: "index_locations_on_city_id"
@@ -456,8 +460,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.integer "media_type", default: 0
     t.string "file_name"
     t.text "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "media_option", default: 0
     t.index ["mediable_type", "mediable_id"], name: "index_media_on_mediable"
   end
@@ -468,8 +472,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "value"
     t.string "translatable_type"
     t.bigint "translatable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["translatable_id", "translatable_type", "key"], name: "index_mobility_string_translations_on_translatable_attribute"
     t.index ["translatable_id", "translatable_type", "locale", "key"], name: "index_mobility_string_translations_on_keys", unique: true
     t.index ["translatable_type", "key", "value", "locale"], name: "index_mobility_string_translations_on_query_keys"
@@ -481,8 +485,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.text "value"
     t.string "translatable_type"
     t.bigint "translatable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["translatable_id", "translatable_type", "key"], name: "index_mobility_text_translations_on_translatable_attribute"
     t.index ["translatable_id", "translatable_type", "locale", "key"], name: "index_mobility_text_translations_on_keys", unique: true
   end
@@ -492,9 +496,9 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "notifiable_type"
     t.bigint "notifiable_id"
     t.boolean "is_seen", default: false
-    t.datetime "seen_time"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "seen_time", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["notifiable_type", "notifiable_id"], name: "index_notification_users_on_notifiable"
     t.index ["notification_id"], name: "index_notification_users_on_notification_id"
   end
@@ -506,16 +510,16 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "data"
     t.string "data_id"
     t.boolean "need_action", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "occasion_types", force: :cascade do |t|
     t.string "name"
     t.string "icon"
     t.string "banner"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.text "description"
   end
 
@@ -531,30 +535,30 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.integer "status", default: 0
     t.bigint "occasion_type_id"
     t.bigint "customer_id"
-    t.datetime "datetime"
+    t.datetime "datetime", precision: nil
     t.string "icon"
     t.string "banner"
     t.text "description"
     t.integer "repetition_type", default: 0
     t.boolean "send_reminder", default: false
     t.integer "reminder_days", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_occasions_on_customer_id"
     t.index ["occasion_type_id"], name: "index_occasions_on_occasion_type_id"
   end
 
   create_table "option_types", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "option_value_variants", force: :cascade do |t|
     t.bigint "variant_id", null: false
     t.bigint "option_value_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["option_value_id", "variant_id"], name: "index_option_value_variants_on_option_value_id_and_variant_id", unique: true
     t.index ["option_value_id"], name: "index_option_value_variants_on_option_value_id"
     t.index ["variant_id", "option_value_id"], name: "index_option_value_variants_on_variant_id_and_option_value_id", unique: true
@@ -565,22 +569,22 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "option_type_id", null: false
     t.string "name"
     t.string "presentation"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["option_type_id"], name: "index_option_values_on_option_type_id"
   end
 
   create_table "order_complaint_reasons", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_complaints", force: :cascade do |t|
     t.text "feedback"
     t.bigint "order_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "status"
     t.string "complaint_email"
     t.index ["order_id"], name: "index_order_complaints_on_order_id"
@@ -589,15 +593,15 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "order_declination_reasons", force: :cascade do |t|
     t.string "name"
     t.boolean "is_visible", default: true
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_reasons", force: :cascade do |t|
     t.bigint "order_complaint_id"
     t.bigint "order_complaint_reason_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["order_complaint_id"], name: "index_order_reasons_on_order_complaint_id"
     t.index ["order_complaint_reason_id"], name: "index_order_reasons_on_order_complaint_reason_id"
   end
@@ -607,8 +611,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "route_status"
     t.string "order_request_node_url"
     t.bigint "route_applied_driver_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["route_applied_driver_id"], name: "index_order_request_nodes_on_route_applied_driver_id"
   end
 
@@ -619,9 +623,9 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.integer "status", default: 0
     t.bigint "order_id"
     t.bigint "location_id"
-    t.datetime "fulfilled_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "fulfilled_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_order_states_on_location_id"
     t.index ["order_id"], name: "index_order_states_on_order_id"
   end
@@ -632,8 +636,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "next_state"
     t.string "stateful_type"
     t.bigint "stateful_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["stateful_type", "stateful_id"], name: "index_order_status_changes_on_stateful"
   end
 
@@ -642,14 +646,14 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "customer_id"
     t.bigint "payment_transaction_id"
     t.integer "status", default: 0
-    t.datetime "completed_at"
-    t.datetime "canceled_at"
-    t.datetime "delivery_date"
+    t.datetime "completed_at", precision: nil
+    t.datetime "canceled_at", precision: nil
+    t.datetime "delivery_date", precision: nil
     t.bigint "recipient_id"
     t.bigint "recipient_information_id"
     t.bigint "driver_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "delivery_address_id"
     t.boolean "need_more_info", default: true
     t.string "delivery_time"
@@ -667,8 +671,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "payment_methods", force: :cascade do |t|
     t.string "name"
     t.boolean "is_available"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "lookup_key"
   end
 
@@ -681,8 +685,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.float "original_amount"
     t.string "currency"
     t.float "vat_percentage"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_payment_transactions_on_cart_id"
     t.index ["payment_method_id"], name: "index_payment_transactions_on_payment_method_id"
   end
@@ -690,8 +694,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "product_categories", force: :cascade do |t|
     t.bigint "category_id", null: false
     t.bigint "product_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_product_categories_on_category_id"
     t.index ["product_id"], name: "index_product_categories_on_product_id"
   end
@@ -699,27 +703,18 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "product_option_types", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "option_type_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["option_type_id", "product_id"], name: "index_product_option_types_on_option_type_id_and_product_id", unique: true
     t.index ["option_type_id"], name: "index_product_option_types_on_option_type_id"
     t.index ["product_id", "option_type_id"], name: "index_product_option_types_on_product_id_and_option_type_id", unique: true
     t.index ["product_id"], name: "index_product_option_types_on_product_id"
   end
 
-  create_table "product_sub_categories", force: :cascade do |t|
-    t.bigint "sub_category_id", null: false
-    t.bigint "product_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["product_id"], name: "index_product_sub_categories_on_product_id"
-    t.index ["sub_category_id"], name: "index_product_sub_categories_on_sub_category_id"
-  end
-
   create_table "product_views", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.bigint "product_id", null: false
-    t.datetime "view_date"
+    t.datetime "view_date", precision: nil
     t.index ["customer_id", "product_id"], name: "index_product_views_on_customer_id_and_product_id", unique: true
     t.index ["customer_id"], name: "index_product_views_on_customer_id"
     t.index ["product_id", "customer_id"], name: "index_product_views_on_product_id_and_customer_id", unique: true
@@ -736,8 +731,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.float "avg_rate", default: 0.0
     t.integer "reviews_count", default: 0
     t.string "dynamic_link"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "thumbnail"
     t.index ["store_id"], name: "index_products_on_store_id"
   end
@@ -746,15 +741,68 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "country_code"
     t.string "phone_number"
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "resources", force: :cascade do |t|
     t.string "name"
     t.string "presentation"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "return_request_items", force: :cascade do |t|
+    t.integer "status"
+    t.integer "quantity"
+    t.string "reason"
+    t.bigint "return_request_id"
+    t.string "returnable_type"
+    t.bigint "returnable_id"
+    t.index ["return_request_id"], name: "index_return_request_items_on_return_request_id"
+    t.index ["returnable_type", "returnable_id"], name: "index_return_request_items_on_returnable"
+  end
+
+  create_table "return_request_nodes", force: :cascade do |t|
+    t.string "request_status"
+    t.string "return_route_status"
+    t.string "return_request_node_url"
+    t.bigint "return_route_applied_driver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["return_route_applied_driver_id"], name: "index_return_request_nodes_on_return_route_applied_driver_id"
+  end
+
+  create_table "return_requests", force: :cascade do |t|
+    t.bigint "order_id"
+    t.integer "status"
+    t.datetime "completed_at", precision: nil
+    t.string "return_request_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_return_requests_on_order_id"
+  end
+
+  create_table "return_route_applied_drivers", force: :cascade do |t|
+    t.bigint "driver_id"
+    t.bigint "return_route_id"
+    t.float "delivery_fees"
+    t.integer "status"
+    t.index ["driver_id"], name: "index_return_route_applied_drivers_on_driver_id"
+    t.index ["return_route_id"], name: "index_return_route_applied_drivers_on_return_route_id"
+  end
+
+  create_table "return_routes", force: :cascade do |t|
+    t.integer "leg_type"
+    t.string "name"
+    t.integer "status"
+    t.integer "current_step", default: 0
+    t.bigint "return_request_id"
+    t.bigint "driver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_id"], name: "index_return_routes_on_driver_id"
+    t.index ["return_request_id"], name: "index_return_routes_on_return_request_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -766,8 +814,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "reviewable_id"
     t.float "rating", default: 0.0
     t.text "comment"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "reviewee_key", default: 0
     t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable"
     t.index ["reviewee_type", "reviewee_id"], name: "index_reviews_on_reviewee"
@@ -778,8 +826,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "ribbon_colors", force: :cascade do |t|
     t.string "name"
     t.string "presentation"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "price"
     t.float "price_after_discount"
   end
@@ -792,16 +840,16 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.boolean "can_read", default: false
     t.boolean "can_update", default: false
     t.boolean "can_delete", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["resource_id"], name: "index_role_permissions_on_resource_id"
     t.index ["role_id"], name: "index_role_permissions_on_role_id"
   end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "route_applied_drivers", force: :cascade do |t|
@@ -809,8 +857,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "route_id"
     t.float "delivery_fees"
     t.integer "status", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["driver_id"], name: "index_route_applied_drivers_on_driver_id"
     t.index ["route_id"], name: "index_route_applied_drivers_on_route_id"
   end
@@ -818,8 +866,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "route_complaint_reasons", force: :cascade do |t|
     t.string "name"
     t.boolean "is_visible"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "route_complaints", force: :cascade do |t|
@@ -827,16 +875,16 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.text "feedback"
     t.integer "status"
     t.bigint "route_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["route_id"], name: "index_route_complaints_on_route_id"
   end
 
   create_table "route_reasons", force: :cascade do |t|
     t.bigint "route_complaint_id"
     t.bigint "route_complaint_reason_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["route_complaint_id", "route_complaint_reason_id"], name: "index_route_reasons_on_complaint_and_reason"
     t.index ["route_complaint_id"], name: "index_route_reasons_on_route_complaint_id"
     t.index ["route_complaint_reason_id"], name: "index_route_reasons_on_route_complaint_reason_id"
@@ -848,8 +896,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "destination_id"
     t.integer "status", default: 0
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["destination_type", "destination_id"], name: "index_route_steps_on_destination"
     t.index ["route_id"], name: "index_route_steps_on_route_id"
   end
@@ -859,8 +907,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "driver_id"
     t.string "name"
     t.integer "leg_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "status"
     t.bigint "order_declination_reasons_id"
     t.integer "current_step", default: 0
@@ -878,8 +926,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "image"
     t.float "price"
     t.float "price_after_discount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "weight"
     t.float "width"
     t.float "height"
@@ -894,8 +942,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "logo"
     t.integer "no_of_views", default: 0
     t.integer "status", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "country_code", default: ""
     t.string "phone_number", default: ""
     t.string "email", default: "", null: false
@@ -904,12 +952,12 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "unconfirmed_country_code"
     t.string "unconfirmed_phone_number"
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
+    t.datetime "reset_password_sent_at", precision: nil
     t.string "verification_code"
-    t.datetime "verification_code_sent_at"
+    t.datetime "verification_code_sent_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.boolean "enable_push", default: true
@@ -923,9 +971,6 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "verification_email_token"
     t.text "rejection_reason"
     t.integer "profile_status"
-    t.index ["country_code", "phone_number", "status"], name: "index_stores_on_country_code_and_phone_number_and_status", unique: true, where: "(status = 0)"
-    t.index ["email"], name: "index_stores_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_stores_on_reset_password_token", unique: true
   end
 
   create_table "stores_tags", id: false, force: :cascade do |t|
@@ -935,22 +980,14 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.index ["tag_id", "store_id"], name: "index_stores_tags_on_tag_id_and_store_id"
   end
 
-  create_table "sub_categories", force: :cascade do |t|
-    t.string "name"
-    t.bigint "category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_sub_categories_on_category_id"
-  end
-
   create_table "suggested_wrappers", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "wrappable_type"
     t.float "cost"
     t.float "cost_after_discount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "wrap_variant_id"
     t.bigint "ribbon_color_id"
     t.string "image"
@@ -965,25 +1002,53 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.index ["wrap_extra_id", "suggested_wrapper_id"], name: "wrap_extra_suggested_wrapper_index", unique: true
   end
 
-  create_table "suggested_wrappings", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.string "wrappable_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "system_configurations", force: :cascade do |t|
     t.string "key"
     t.text "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "country_code", default: ""
+    t.string "phone_number", default: ""
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.string "verification_code"
+    t.datetime "verification_code_sent_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.string "unconfirmed_country_code"
+    t.string "unconfirmed_phone_number"
+    t.string "name"
+    t.integer "status"
+    t.integer "profile_status"
+    t.integer "gender"
+    t.string "avatar"
+    t.integer "is_verified"
+    t.boolean "enable_notifications", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["country_code", "phone_number"], name: "index_users_on_country_code_and_phone_number", unique: true
+    t.index ["email", "status"], name: "index_users_on_email_and_status", unique: true, where: "(status = 0)"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "variant_wishlists", force: :cascade do |t|
@@ -1006,8 +1071,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.integer "target_gender", default: 0
     t.integer "target_age", default: 0
     t.integer "position", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "discount_percentage"
     t.float "weight"
     t.float "width"
@@ -1023,8 +1088,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.float "amount"
     t.string "currency"
     t.integer "action_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "wallet_amount_before_transaction", default: 0.0
     t.string "wallet_amount_currency_before_transaction"
     t.float "wallet_amount_after_transaction", default: 0.0
@@ -1036,8 +1101,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "user_type"
     t.bigint "user_id"
     t.float "balance", default: 0.0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_type", "user_id"], name: "index_wallets_on_user"
   end
 
@@ -1045,8 +1110,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.integer "list_type", default: 0
     t.bigint "customer_id", null: false
     t.bigint "occasion_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_wishlists_on_customer_id"
     t.index ["occasion_id"], name: "index_wishlists_on_occasion_id"
   end
@@ -1056,8 +1121,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "image"
     t.float "price"
     t.float "price_after_discount"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "count_on_hand", default: 0
     t.boolean "purchasable", default: false
     t.boolean "track_inventory", default: false
@@ -1082,8 +1147,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.float "addition_cost_after_discount"
     t.string "image"
     t.string "presentation"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "name"
     t.index ["wrap_id"], name: "index_wrap_option_values_on_wrap_id"
     t.index ["wrap_option_id"], name: "index_wrap_option_values_on_wrap_option_id"
@@ -1095,8 +1160,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.bigint "shape_id"
     t.bigint "color_id"
     t.bigint "wrap_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "name"
     t.boolean "track_inventory", default: false
     t.index ["color_id"], name: "index_wrap_variants_on_color_id"
@@ -1107,8 +1172,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "wrappers", force: :cascade do |t|
     t.string "wrappable_type"
     t.bigint "wrappable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.float "cost", default: 0.0
     t.float "cost_after_discount", default: 0.0
     t.bigint "wrap_variant_id"
@@ -1121,8 +1186,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   create_table "wraps", force: :cascade do |t|
     t.string "name"
     t.string "image"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "dimensions"
   end
 
@@ -1134,8 +1199,8 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
     t.string "radius"
     t.string "delivery_fees", default: "0.0"
     t.bigint "google_city_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "is_fulfillment_center", default: false
     t.index ["google_city_id"], name: "index_zones_on_google_city_id"
   end
@@ -1195,10 +1260,16 @@ ActiveRecord::Schema.define(version: 2023_11_02_092306) do
   add_foreign_key "product_categories", "products"
   add_foreign_key "product_option_types", "option_types"
   add_foreign_key "product_option_types", "products"
-  add_foreign_key "product_sub_categories", "sub_categories"
   add_foreign_key "product_views", "customers"
   add_foreign_key "product_views", "products"
   add_foreign_key "products", "stores"
+  add_foreign_key "return_request_items", "return_requests"
+  add_foreign_key "return_request_nodes", "return_route_applied_drivers"
+  add_foreign_key "return_requests", "orders"
+  add_foreign_key "return_route_applied_drivers", "drivers"
+  add_foreign_key "return_route_applied_drivers", "return_routes"
+  add_foreign_key "return_routes", "drivers"
+  add_foreign_key "return_routes", "return_requests"
   add_foreign_key "role_permissions", "resources"
   add_foreign_key "role_permissions", "roles"
   add_foreign_key "route_applied_drivers", "drivers"

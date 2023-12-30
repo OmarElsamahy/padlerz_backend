@@ -13,6 +13,7 @@ module ParamsHelper
   end
 
   def registration_params
-    params.require(:user).permit()
+    params.require(:user).permit(:name, :country_code, :phone_number, :password,
+                                 :password_confirmation, :gender, :avatar, :email)
   end
 end

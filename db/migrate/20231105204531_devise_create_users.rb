@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DeviseCreateUsers < ActiveRecord::Migration[6.1]
+class DeviseCreateUsers < ActiveRecord::Migration[7.0]
   def change
     create_table :users do |t|
       ## Database authenticatable
@@ -40,6 +40,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.integer :status
       t.integer :profile_status
       t.integer :gender
+      t.string :avatar
       t.integer :is_verified
       t.boolean :enable_notifications, default: 0
 

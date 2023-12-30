@@ -25,14 +25,6 @@ class BaseApiController < ApplicationController
     puts "TIME ZONE IS #{@time_zone}"
   end
 
-  def set_current_city
-    if request.headers["City"].present?
-      @current_city = request.headers["City"].to_i
-      @current_fulfillment_center_city = GoogleCity.find(@current_city).fulfillment_center
-      puts "Current City is #{@current_city} , Fulfilled By #{@current_fulfillment_center_city.key}"
-    end
-  end
-
   def use_time_zone
     Time.use_zone(@time_zone) { yield }
   end
@@ -71,6 +63,12 @@ class BaseApiController < ApplicationController
     controller_name_segments.pop
     controller_namespace = controller_name_segments.join("/").camelize
     @current_ability ||= Ability.new(current_user, controller_namespace)
+  end
+
+  def downcase_email_params
+    if params[:user].present? && !params[:user][:email].blank?
+      params[:user][:email] = params[:user][:email].downcase
+    end
   end
 
   def logger
